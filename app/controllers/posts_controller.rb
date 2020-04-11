@@ -4,22 +4,37 @@ class PostsController < ApplicationController
     end
 
     def new
-        @post = Post.new 
+        @post = Post.new
     end
 
     def show
 @post = Post.find(params[:id])
     end
 
+    def edit
+@post = Post.find(params[:id])
+
+    end
+
     def create
         #render plain: params[:post].inspect
-@post = Post.new(post_params)
+        @post = Post.new(post_params)
 
-if (@post.save)
-redirect_to @post
-else
-render 'new' #в случае отказа перезагрузка страницы
-end
+        if (@post.save)
+            redirect_to @post
+        else
+            render 'new' #в случае отказа перезагрузка страницы
+        end
+    end
+
+    def update
+        @post = Post.find(params[:id])
+
+        if (@post.update(post_params))
+            redirect_to @post
+        else
+            render 'edit' #в случае отказа перезагрузка страницы
+        end
     end
 
     private def post_params
