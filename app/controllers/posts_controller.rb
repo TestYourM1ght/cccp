@@ -1,10 +1,10 @@
 class PostsController < ApplicationController
     def index
-@post = Post.all 
+@post = Post.all
     end
 
     def new
-
+        @post = Post.new 
     end
 
     def show
@@ -15,8 +15,11 @@ class PostsController < ApplicationController
         #render plain: params[:post].inspect
 @post = Post.new(post_params)
 
-@post.save
+if (@post.save)
 redirect_to @post
+else
+render 'new' #в случае отказа перезагрузка страницы
+end
     end
 
     private def post_params
