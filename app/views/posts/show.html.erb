@@ -1,5 +1,35 @@
-<h1> <%= @post.title %>  </h1>
+<h2> <%= @post.title %>  </h2>
 <p> <%= @post.body %> </p>
 <hr>
 <%= link_to "Редактировать", edit_post_path(@post), :class => 'btn btn-success' %>
 <%= link_to "Удалить", post_path(@post), method: :delete, data:{confirm: "Хотите удалить статью?"},:class => 'btn btn-danger' %>
+<p>
+
+    </p>
+<hr>
+<h3>Комментарии</h3>
+<% @post.comments.each do |comment| %>
+
+<div class="alert alert-secondary">
+<p><strong><%= comment.username %></strong>: <%= comment.body %></p>
+
+</div>
+
+<% end %>
+
+<hr>
+<h3>Добавление комментария</h3>
+<%= form_for([@post, @post.comments.build]) do |f| %>
+
+<p>
+    Ваше имя<br>
+    <%= f.text_field(:username, {:class => 'form-control'}) %>
+</p>
+<p>
+Текст комментария<br>
+<%= f.text_area(:body, {:class => 'form-control'}) %>
+</p>
+<p>
+    <%= f.submit("Прокомментировать",{:class => 'btn btn-info'}) %>
+</p>
+<% end %>

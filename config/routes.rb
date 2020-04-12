@@ -3,6 +3,7 @@ Rails.application.routes.draw do
 
   get 'about' => 'pages#about', as: 'about'
   get 'donations' => 'pages#donations', as: 'donations'
-resources :posts
-
+resources :posts do
+  resources :comments #сделали ссылки на комменты внутри юрл постов
+end
 end
